@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebProject.Redirects
 {
-    [Table(RedirectService.RedirectTableName)]
+    [Table(RedirectRuleStorage.RedirectTableName)]
     public class RedirectRule
     {
         [Key]

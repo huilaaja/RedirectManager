@@ -10,8 +10,6 @@ namespace WebProject.Redirects
 {
     public class RedirectService
     {
-        public static bool TableExist = false;
-        public const string RedirectTableName = "SOLITA_Redirect";
         private readonly UrlResolver _urlResolver;
         private readonly IContentRepository _contentRepository;
 
@@ -19,12 +17,12 @@ namespace WebProject.Redirects
         {
             _urlResolver = urlResolver;
             _contentRepository = contentRepository;
-            TableExist = RedirectTableExists();
+            RedirectRuleStorage.Init();
         }
 
         public RedirectRule GetRedirect(int id)
         {
-            if (!TableExist) return null;
+            if (!RedirectRuleStorage.TableExist) return null;
             using (var context = ServiceLocator.Current.GetInstance<RedirectDbContext>())
             {
                 return context.RedirectRules.FirstOrDefault(x => x.Id == id);
@@ -33,7 +31,7 @@ namespace WebProject.Redirects
 
         public RedirectRule[] List()
         {
-            if (!TableExist) return new RedirectRule[] { };
+            if (!RedirectRuleStorage.TableExist) return new RedirectRule[] { };
 
             using (var context = ServiceLocator.Current.GetInstance<RedirectDbContext>())
             {
@@ -106,7 +104,7 @@ namespace WebProject.Redirects
 
         public string GetPrimaryRedirectUrlOrDefault(string relativeUrl)
         {
-            if (!TableExist) return null;
+            if (!RedirectRuleStorage.TableExist) return null;
             if (string.IsNullOrEmpty(relativeUrl))
                 return null;
             if(relativeUrl.Length > 1 && relativeUrl.Last() == '/')
@@ -145,7 +143,22 @@ namespace WebProject.Redirects
         }
 
 
-        public bool CreateTable()
+    }
+
+    public static class RedirectRuleStorage
+    {
+        public const string RedirectTableName = "SOLITA_Redirect";
+        public static bool TableExist { get; private set; }
+
+        public static void Init()
+        {
+            if (!TableExist)
+            {
+                TableExist = RedirectTableExists();
+            }
+        }
+
+        public static bool CreateTable()
         {
             using (var context = ServiceLocator.Current.GetInstance<RedirectDbContext>())
             {
@@ -165,7 +178,7 @@ namespace WebProject.Redirects
             }
         }
 
-        protected bool RedirectTableExists()
+        public static bool RedirectTableExists()
         {
             using (var context = ServiceLocator.Current.GetInstance<RedirectDbContext>())
             {
@@ -177,10 +190,5 @@ namespace WebProject.Redirects
                 return TableExist = t;
             }
         }
-
     }
-
-
-
-
 }

@@ -34,12 +34,12 @@
 
     <div class="container">
 
-        @if (!RedirectService.TableExist)
+        @if (!RedirectRuleStorage.TableExist)
         {
             <div class="panel panel-danger">
-                <div class="panel-heading">Table @(RedirectService.RedirectTableName) does not exist!</div>
+                <div class="panel-heading">Table @(RedirectRuleStorage.RedirectTableName) does not exist!</div>
                 <div class="panel-body">
-                    <a class="btn btn-default" href="@(Request.Url.AbsolutePath)?action=createtable">Create Table @(RedirectService.RedirectTableName)</a>
+                    <a class="btn btn-default" href="@(Request.Url.AbsolutePath)?action=createtable">Create Table @(RedirectRuleStorage.RedirectTableName)</a>
                 </div>
             </div>
         }
@@ -212,7 +212,7 @@
 
         if (Request.Params["action"] == "createtable")
         {
-            RedirectService.CreateTable();
+            RedirectRuleStorage.CreateTable();
             Response.Redirect(Request.Url.AbsolutePath);
         }
 
