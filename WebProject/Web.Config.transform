@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuration>
 
+	<!-- Custom 404 errors are forwarded to  -->
   <system.webServer>
     <httpErrors errorMode="Custom">
       <remove statusCode="404" />
@@ -19,4 +20,4 @@
     </system.web>
   </location>
 
-	</configuration>
+</configuration>

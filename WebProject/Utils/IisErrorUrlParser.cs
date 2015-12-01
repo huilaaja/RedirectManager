@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Web;
-
 namespace WebProject.Utils
 {
-
     public static class IisErrorUrlParser
     {
         public static Uri GetOriginalUrl(HttpRequestBase request, int statusCode)

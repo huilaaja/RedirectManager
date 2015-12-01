@@ -2,13 +2,13 @@
 
 <p>Redirect Manager is simple, portable, extendable redirect manager for Episerver projects.</p>
 
-<h3>Minimum Requirements</h3>
+<h2>Minimum Requirements</h2>
 <ul>
 	<li>EPiServer 7 MVC project</li>
 	<li>Entity Framework Nuget</li>
 </ul>
 
-<h3>Installation instructions</h3>
+<h2>Installation instructions</h2>
 <ol>
 	<li>Install Entity Framework from Nuget.<br/>
    https://www.nuget.org/packages/EntityFramework</li>
@@ -18,3 +18,12 @@
 </ol>
 
 <img src="https://raw.githubusercontent.com/huilaaja/RedirectManager/master/Docs/redirect-manager-1.png" />
+
+
+<h2>Redirection rules</h2>
+<p>Here's couple of exmaple what kind of redirections are possible.</p>
+<img src="https://raw.githubusercontent.com/huilaaja/RedirectManager/master/Docs/redirect-manager-2.png" />
+
+
+<h2>Instructions for usage</h2>
+<img src="https://raw.githubusercontent.com/huilaaja/RedirectManager/master/Docs/redirect-manager-3.png" />
