@@ -21,7 +21,8 @@
 
 
 <h2>Redirection rules</h2>
-<p>Here's couple of exmaple what kind of redirections are possible.</p>
+<p>Currently the Redirect Manager is only visible/accessible by administrators.</p>
+<p>Here's couple of examples what kind of redirections are possible.</p>
 <img src="https://raw.githubusercontent.com/huilaaja/RedirectManager/master/Docs/redirect-manager-2.png" />
 
 
