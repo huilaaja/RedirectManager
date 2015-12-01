@@ -1,4 +1,6 @@
 ﻿@inherits System.Web.WebPages.WebPage
+@using EPiServer.Framework.Web.Resources
+@using EPiServer.Shell.Navigation
 @using EPiServer.ServiceLocation
 @using WebProject.Redirects
 @{ OnLoad(); }
@@ -14,6 +16,10 @@
     <title>Redirect Manager</title>
 
     <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+
+    @Html.Raw(ClientResources.RenderResources("ShellCore"))
+    @Html.Raw(ClientResources.RenderResources("ShellWidgets"))
+		
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <!-- Optional theme -->
@@ -23,23 +29,10 @@
 
 </head>
 <body>
-    <div class="container">
 
-        <div class="page-header">
-            <h1>Redirect Manager</h1>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <b class="panel-title"><a href="#" data-toggle="collapse" data-target="#instructionsPanel">Instructions</a></b>
-            </div>
-            <div id="instructionsPanel" class="panel-collapse panel-body collapse">
-                <p>Redirect Manager allows to add, modify and remove <b>permanent redirection rules</b> (alias HTTP 301, Moved Permanently).</p>
-                <p>Rules are redirected in 404 handler, so all the pages and static content overrides these rules.</p>
-                <p>Url addresses are <b>NOT case sensitive</b>. Also the <b>trailing slash (/) in urls' is removed</b> before rule's are applied.</p>
-                <p>Wildcard rules redirect all the addresses that starts with the from url address.</p>
-                <p>Be careful, it's possible to create eternal loop and damage the service.</p>
-            </div>
-        </div>
+		@Html.Raw(MenuHelper.CreateGlobalMenu("/global", "/global/cms/redirects"))
+
+    <div class="container">
 
         @if (!RedirectService.TableExist)
         {
@@ -141,6 +134,18 @@
                     }
                 </tbody>
             </table>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <b class="panel-title"><a href="#" data-toggle="collapse" data-target="#instructionsPanel">Instructions</a></b>
+            </div>
+            <div id="instructionsPanel" class="panel-collapse panel-body collapse">
+                <p>Redirect Manager allows to add, modify and remove <b>permanent redirection rules</b> (alias HTTP 301, Moved Permanently).</p>
+                <p>Rules are redirected in 404 handler, so all the pages and static content overrides these rules.</p>
+                <p>Url addresses are <b>NOT case sensitive</b>. Also the <b>trailing slash (/) in urls' is removed</b> before rule's are applied.</p>
+                <p>Wildcard rules redirect all the addresses that starts with the from url address.</p>
+                <p>Be careful, it's possible to create eternal loop and damage the service.</p>
+            </div>
         </div>
     </div>
 </body>
