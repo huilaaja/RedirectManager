@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+
+  <system.webServer>
+    <httpErrors errorMode="Custom">
+      <remove statusCode="404" />
+      <error statusCode="404" path="/error/http404" responseMode="ExecuteURL" />
+    </httpErrors>
+  </system.webServer>
+	
+	<!-- Protecting the admin UI -->
+  <location path="Views/Admin">
+    <system.web>
+      <httpRuntime executionTimeout="1000" />
+      <authorization>
+        <allow roles="WebAdmins, CmsAdmins, Administrators" />
+        <deny users="*" />
+      </authorization>
+    </system.web>
+  </location>
+
+	</configuration>
