@@ -8,10 +8,10 @@ It requires only 4 files for business logic and data access, 1 controller and 1 
 
 <h2>Features</h2>
 <ul>
-	<li>Easily create redirects to any urls or to Episerver pages.</li>
+	<li>Easily create redirects to any URLs or to Episerver pages.</li>
 	<li>Wild card rules.</li>
 	<li>Reordering and prioritizing rules.</li>
-	<li>Allow moving and changing urls of Episerver pages and the redirects still works.</li>
+	<li>Allow moving and changing URLs of Episerver pages and the redirects still works.</li>
 	<li>All redirects are HTTP 301 (Moved permanently), because search engines only follow this kind of redirects.</li>
 	<li>Access restrictions allow usage of rule manager to only administrators.</li>
 	<li>And the most important: It's open Source and it's yours to extend and manipulate!</li>
@@ -21,10 +21,10 @@ It requires only 4 files for business logic and data access, 1 controller and 1 
 <ul>
 	<li>No CSS or styling; <br/>There isn't even a single line of CSS or styling in project. 
 		Frameworks as Bootstrap give enough styles for simple solutions and it's responsive OOTB.</li>
-	<li>No Nuget packaging; <br/>It's not a Nuget package because Nuget packages aren't agile enough. It's easier to copy paste changes.</li>
-	<li>No DDS; <br/>We have come to conclusion that Dynamic Data Storage isn't scalable and functional for our purposis.</li>
+	<li>No NuGet packaging; <br/>It's not a NuGet package because NuGet packages aren't agile enough. It's easier to copy&paste changes.</li>
+	<li>No DDS; <br/>We have come to conclusion that Dynamic Data Storage isn't scalable and functional for our purposes.</li>
 	<li>No Dojo Toolkit, No Dijit; <br/>Dojo framework is way too large and complicated framework for simple solutions like this.</li>
-	<li>No REST; <br/>Normally we would have used AngularJS and Web API, but with administration tools it's not neccessary.</li>
+	<li>No REST; <br/>Normally we would have used AngularJS and Web API, but with administration tools it's not necessary.</li>
 	<li>No Translations; <br/>Administers normally do not need translations, so why waste of time and energy.</li>
 </ul>
 
@@ -36,7 +36,7 @@ It requires only 4 files for business logic and data access, 1 controller and 1 
 
 <h2>Installation instructions</h2>
 <ol>
-	<li>Install Entity Framework from Nuget.<br/>
+	<li>Install Entity Framework from NuGet.<br/>
    https://www.nuget.org/packages/EntityFramework</li>
 	<li>Copy files into your project</li>
 	<li>Apply manually Web.Config transformations.</li>
