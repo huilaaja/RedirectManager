@@ -31,6 +31,11 @@ It requires only 4 files for business logic and data access, 1 controller and 1 
 	<li><b>No Unit Tests</b>; <br/>There is no point of testing trivial things and unit testing != no bugs.</li>
 </ul>
 
+<h2>Redirection rules</h2>
+<p>Here's couple of examples what kind of rules are possible.</p>
+<p><img src="https://raw.githubusercontent.com/huilaaja/RedirectManager/master/images/redirect-manager-2.png" /></p>
+
+
 <h2>Minimum Requirements</h2>
 <ul>
 	<li>Episerver 7 MVC project</li>
@@ -45,13 +50,8 @@ It requires only 4 files for business logic and data access, 1 controller and 1 
 	<li>Apply manually Web.Config transformations.</li>
 	<li>Go to www.yourproject.com/Views/Admin/RedirectManager.cshtml</li>
 </ol>
-
 <p><img src="https://raw.githubusercontent.com/huilaaja/RedirectManager/master/images/redirect-manager-1.png" /></p>
 
-<h2>Redirection rules</h2>
-<p>Currently the Redirect Manager is only visible/accessible by administrators.</p>
-<p>Here's couple of examples what kind of redirections are possible.</p>
-<p><img src="https://raw.githubusercontent.com/huilaaja/RedirectManager/master/images/redirect-manager-2.png" /></p>
 
 <h2>Instructions for usage</h2>
 <p><img src="https://raw.githubusercontent.com/huilaaja/RedirectManager/master/images/redirect-manager-3.png" /></p>
