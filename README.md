@@ -14,7 +14,7 @@ It requires only 4 files for business logic and data access, 1 controller and 1 
 	<li>Allow moving and changing URLs of Episerver pages and the redirects still works.</li>
 	<li>All redirects are HTTP 301 (Moved permanently), because search engines only follow this kind of redirects.</li>
 	<li>Access restrictions allow usage of rule manager to only administrators.</li>
-	<li>And the most important: It's open Source and it's yours to extend and manipulate! Solita <3 Open Source!</li>
+	<li>And the most important: It's open Source and it's yours to extend and manipulate! <a href="https://github.com/solita" target="_blank">Solita &lt;3 Open Source!</a></li>
 </ul>
 
 <h2>The key features actually are what this add-on is NOT</h2>
