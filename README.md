@@ -1,11 +1,37 @@
 <h1>Redirect Manager</h1>
 
-<p>Redirect Manager is simple, portable, extendable redirect manager for Episerver projects.</p>
+<p>Redirect Manager is simple, portable, extendable, open source redirect tool for Episerver projects.</p>
+
+<h2>Description</h2>
+<p>It's built to be as minimalistic as possible and as an example of simple Episerver add-on. 
+It requires only 4 files for business logic and data access, 1 controller and 1 view.</p>
+
+<h2>Features</h2>
+<ul>
+	<li>Easily create redirects to any urls or to Episerver pages.</li>
+	<li>Wild card rules.</li>
+	<li>Reordering and prioritizing rules.</li>
+	<li>Allow moving and changing urls of Episerver pages and the redirects still works.</li>
+	<li>All redirects are HTTP 301 (Moved permanently), because search engines only follow this kind of redirects.</li>
+	<li>Access restrictions allow usage of rule manager to only administrators.</li>
+	<li>And the most important: It's open Source and it's yours to extend and manipulate!</li>
+</ul>
+
+<h2>The key features actually are what this add-on is NOT</h2>
+<ul>
+	<li>No CSS or styling; <br/>There isn't even a single line of CSS or styling in project. 
+		Frameworks as Bootstrap give enough styles for simple solutions and it's responsive OOTB.</li>
+	<li>No Nuget packaging; <br/>It's not a Nuget package because Nuget packages aren't agile enough. It's easier to copy paste changes.</li>
+	<li>No DDS; <br/>We have come to conclusion that Dynamic Data Storage isn't scalable and functional for our purposis.</li>
+	<li>No Dojo Toolkit, No Dijit; <br/>Dojo framework is way too large and complicated framework for simple solutions like this.</li>
+	<li>No REST; <br/>Normally we would have used AngularJS and Web API, but with administration tools it's not neccessary.</li>
+	<li>No Translations; <br/>Administers normally do not need translations, so why waste of time and energy.</li>
+</ul>
 
 <h2>Minimum Requirements</h2>
 <ul>
-	<li>EPiServer 7 MVC project</li>
-	<li>Entity Framework Nuget</li>
+	<li>Episerver 7 MVC project</li>
+	<li>Entity Framework</li>
 </ul>
 
 <h2>Installation instructions</h2>
@@ -14,7 +40,7 @@
    https://www.nuget.org/packages/EntityFramework</li>
 	<li>Copy files into your project</li>
 	<li>Apply manually Web.Config transformations.</li>
-	<li>Go to www.yourproject.com/Views/Admin/RedirectManager.cshtml and you should get following view</li>
+	<li>Go to www.yourproject.com/Views/Admin/RedirectManager.cshtml</li>
 </ol>
 
 <p><img src="https://raw.githubusercontent.com/huilaaja/RedirectManager/master/images/redirect-manager-1.png" /></p>
