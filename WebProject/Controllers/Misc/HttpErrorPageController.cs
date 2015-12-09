@@ -26,7 +26,7 @@ namespace WebProject.Controllers.Misc
             }
             Response.Clear();
             Response.StatusCode = (int)HttpStatusCode.NotFound;
-						return Content("404 Not found");
+			return Content("404 Not found");
         }
     }
 }
