@@ -14,7 +14,7 @@ It requires only 4 files for business logic and data access, 1 controller and 1 
 	<li>Allow moving and changing URLs of Episerver pages and the redirects still works.</li>
 	<li>All redirects are HTTP 301 (Moved permanently), because search engines only follow this kind of redirects.</li>
 	<li>Access restrictions allow usage of rule manager to only administrators.</li>
-	<li>And the most important: It's open Source and it's yours to extend and manipulate!</li>
+	<li>And the most important: It's open Source and it's yours to extend and manipulate! Solita <3 Open Source!</li>
 </ul>
 
 <h2>The key features actually are what this add-on is NOT</h2>
@@ -28,7 +28,7 @@ It requires only 4 files for business logic and data access, 1 controller and 1 
 		Coding some trivial logic to views will your project more agile.</li>
 	<li><b>No REST</b>; <br/>Normally we would have used AngularJS and Web API, but with administration tools it's not necessary.</li>
 	<li><b>No Translations</b>; <br/>Administers normally do not need localizations, so why waste of time and energy.</li>
-	<li><b>No Unit Tests</b>; <br/>There is no point of testing trivial things and test != no bugs.</li>
+	<li><b>No Unit Tests</b>; <br/>There is no point of testing trivial things and unit testing != no bugs.</li>
 </ul>
 
 <h2>Minimum Requirements</h2>
