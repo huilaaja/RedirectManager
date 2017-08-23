@@ -8,6 +8,7 @@ namespace WebProject.Redirects
     {
         [Key]
         public int Id { get; set; }
+        public string Host { get; set; }
         public int SortOrder { get; set; }
         public string FromUrl { get; set; }
         public string ToUrl { get; set; }

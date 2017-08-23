@@ -19,7 +19,7 @@ namespace WebProject.Controllers.Misc
         public ActionResult Http404()
         {
             Uri originalUrl = IisErrorUrlParser.GetOriginalUrl(System.Web.HttpContext.Current.Request.Url, 404);
-            string redirectTo = _redirectService.GetPrimaryRedirectUrlOrDefault(originalUrl.PathAndQuery);
+            string redirectTo = _redirectService.GetPrimaryRedirectUrlOrDefault(originalUrl.Host, originalUrl.PathAndQuery);
             if (redirectTo != null)
             {
                 return RedirectPermanent(redirectTo);

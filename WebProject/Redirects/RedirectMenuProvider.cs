@@ -11,7 +11,7 @@ namespace WebProject.Redirects
         {
             return new MenuItem[] 
             {
-                new UrlMenuItem("Redirect Manager", "/global/cms/redirects", "/Views/Admin/RedirectManager.cshtml")
+                new UrlMenuItem("Redirects", "/global/cms/redirects", "/Views/Admin/RedirectManager.cshtml")
                 {
                     IsAvailable = context => PrincipalInfo.HasAdminAccess
                 }

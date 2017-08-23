@@ -7,17 +7,12 @@ namespace WebProject.Utils
     {
         public static int? ParseIntOrDefault(this string s)
         {
-            int result;
-            if (int.TryParse(s, out result))
-                return result;
-            return null;
+            return int.TryParse(s, out int result) ? result : (int?)null;
         }
         public static bool? ParseBoolOrDefault(this string s)
         {
-            bool result;
-            if (bool.TryParse(s, out result))
-                return result;
-            return null;
+            return bool.TryParse(s, out bool result) ? result : (bool?)null;
         }
     }
+}
 }
