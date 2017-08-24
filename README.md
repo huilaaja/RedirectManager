@@ -11,6 +11,7 @@ It requires only 4 files for business logic and data access, 1 controller and 1 
 	<li>Easily create redirects to any URLs or to Episerver pages.</li>
 	<li>Wild card rules.</li>
 	<li>Reordering and prioritizing rules.</li>
+	<li>Multi-site support.</li>
 	<li>Allow moving and changing URLs of Episerver pages and the redirects still works.</li>
 	<li>All redirects are HTTP 301 (Moved permanently), because search engines only follow this kind of redirects.</li>
 	<li>Access restrictions allow usage of rule manager to only administrators.</li>
@@ -38,7 +39,7 @@ It requires only 4 files for business logic and data access, 1 controller and 1 
 
 <h2>Minimum Requirements</h2>
 <ul>
-	<li>Episerver 7 MVC project</li>
+	<li>Episerver 7 MVC project with C#7</li>
 	<li>Entity Framework</li>
 </ul>
 
