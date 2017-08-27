@@ -130,7 +130,8 @@ namespace WebProject.Redirects
                                 .Where(x => x.Wildcard)
                                 .OrderBy(x => x.SortOrder)
                                 .ThenBy(x => x.FromUrl);
-                var match = wildcards.FirstOrDefault(x => relativeUrl.StartsWith(x.FromUrl));
+                var match = wildcards.FirstOrDefault(x => relativeUrl.StartsWith(x.FromUrl)
+                                                        || relativeUrl.Equals(x.FromUrl, StringComparison.InvariantCultureIgnoreCase));
 
                 RedirectRule theMatch = (exactMatch != null && match != null)
                                     ? exactMatch.SortOrder < match.SortOrder ? exactMatch : match
