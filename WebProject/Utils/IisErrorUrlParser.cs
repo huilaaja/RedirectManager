@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Web;
 namespace WebProject.Utils
 {
@@ -11,12 +12,10 @@ namespace WebProject.Utils
 
         public static string GetOriginalRelativePath(Uri iisHttpErrorUri, int statusCode)
         {
-            string iisErrorUrlPrefix = $"?{statusCode};"; //example: "?404;"
-            string absoluteHost = $"{iisHttpErrorUri.Scheme}:{iisHttpErrorUri.Host}:{iisHttpErrorUri.Port}/";
-            string relativeUrl = iisHttpErrorUri.Query
-                                .Replace(iisErrorUrlPrefix, "") //remove prefix: "?404;"
-                                .Replace(absoluteHost, "/"); //make relative
-            return relativeUrl;
+            //example: https://www.example-domain.com/error/http404?404;https://example-domain:80/some/path?query=string
+            Regex urlRegex = new Regex($"\\?404;(\\w+):\\/\\/(.*):(\\d?)(\\d?)(\\d?)\\/(?<relativePath>.*)", RegexOptions.Compiled);
+            string relativePath = urlRegex.Match(iisHttpErrorUri.Query)?.Groups["relativePath"]?.Value;
+            return relativePath != null ? "/" + relativePath : null;
         }
     }
 }
