@@ -18,8 +18,8 @@ namespace WebProject.Controllers.Misc
         [Route("error/http404")]
         public ActionResult Http404()
         {
-            Uri originalUrl = IisErrorUrlParser.GetOriginalUrl(System.Web.HttpContext.Current.Request.Url, 404);
-            string redirectTo = _redirectService.GetPrimaryRedirectUrlOrDefault(originalUrl.Host, originalUrl.PathAndQuery);
+            string originalRelativePath = IisErrorUrlParser.GetOriginalRelativePath(System.Web.HttpContext.Current.Request.Url, 404);
+            string redirectTo = _redirectService.GetPrimaryRedirectUrlOrDefault(System.Web.HttpContext.Current.Request.Url.Host, originalRelativePath);
             if (redirectTo != null)
             {
                 return RedirectPermanent(redirectTo);

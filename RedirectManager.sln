@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.3
+VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebProject", "WebProject\", "{BE8B07AE-D9F2-4D15-9CE9-9BD2682B7DA5}"
 	ProjectSection(WebsiteProperties) = preProject
@@ -23,6 +23,11 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebProject", "WebProject\",
 		VWDPort = "50360"
 		SlnRelativePath = "WebProject\"
 		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9FFF9DCB-A3F6-455D-BCF9-5B3CC31826FB}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global
