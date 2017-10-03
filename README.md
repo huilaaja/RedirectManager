@@ -6,6 +6,10 @@
 <p>It's built to be as minimalistic as possible and as an example of simple Episerver add-on. 
 It requires only 4 files for business logic and data access, 1 controller and 1 view.</p>
 
+<h2>New 2.0 version has a bit smaller appearance and multi-site support</h2>
+<p>Preview:</p>
+<p><img src="https://raw.githubusercontent.com/huilaaja/RedirectManager/master/images/redirect-manager-6.png" /></p>
+
 <h2>Features</h2>
 <ul>
 	<li>Easily create redirects to any URLs or to Episerver pages.</li>
