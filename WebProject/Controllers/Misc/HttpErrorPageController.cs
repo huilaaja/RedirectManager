@@ -1,6 +1,5 @@
-﻿using System.Web.Mvc;
-using EPiServer;
-using EPiServer.Core;
+﻿using System.Net;
+using System.Web.Mvc;
 using WebProject.Utils;
 using WebProject.Redirects;
 
