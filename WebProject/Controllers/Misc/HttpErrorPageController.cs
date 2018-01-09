@@ -18,7 +18,7 @@ namespace WebProject.Controllers.Misc
         public ActionResult Http404()
         {
             string originalRelativePath = IisErrorUrlParser.GetOriginalRelativePath(System.Web.HttpContext.Current.Request.Url, 404);
-            string redirectTo = _redirectService.GetPrimaryRedirectUrlOrDefault(System.Web.HttpContext.Current.Request.Url.Host, originalRelativePath);
+            string redirectTo = _redirectService.GetPrimaryRedirectUrlOrDefault(EPiServer.Web.SiteDefinition.Current.Name /*Better then System.Web.HttpContext.Current.Request.Url.Host to support different sites configs in EPiServer*/, originalRelativePath);
             if (redirectTo != null)
             {
                 return RedirectPermanent(redirectTo);
