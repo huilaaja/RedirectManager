@@ -66,3 +66,11 @@ It requires only 4 files for business logic and data access, 1 controller and 1 
 
 <h2>Basic 404 redirect logic</h2>
 <p><img src="https://raw.githubusercontent.com/huilaaja/RedirectManager/master/images/redirect-manager-5.png" /></p>
+
+<h2>Auto wire up</h2>
+<p>You can automatically populate the RedirectManager with data on following events from editors, moving pages in structure, renaming url segment and deleting from Waste Basket. Just put this in your InitializableModule: <br/>
+  <pre>var events = ServiceLocator.Current.GetInstance<IContentEvents>();
+            events.MovingContent += RedirectKeeper.Page_Moving;
+            events.PublishingContent += RedirectKeeper.UrlSegment_Changed;
+            events.DeletedContent += RedirectKeeper.Page_Deleted;</pre>
+</p>
