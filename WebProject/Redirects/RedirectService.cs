@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Web;
 using EPiServer;
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
@@ -115,7 +116,7 @@ namespace WebProject.Redirects
                 return null;
             if (relativeUrl.Length > 1 && relativeUrl.Last() == '/')
                 relativeUrl = relativeUrl.Remove(relativeUrl.Length - 1);
-            relativeUrl = relativeUrl.ToLower();
+            relativeUrl = HttpUtility.UrlDecode(relativeUrl.ToLower());
             using (var context = ServiceLocator.Current.GetInstance<RedirectDbContext>())
             {
                 var exactMatch = context.RedirectRules
