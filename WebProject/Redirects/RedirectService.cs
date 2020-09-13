@@ -15,12 +15,14 @@ namespace WebProject.Redirects
         private readonly UrlResolver _urlResolver;
         private readonly IContentRepository _contentRepository;
         private readonly ISiteDefinitionRepository _siteDefinitionRepository;
+        private readonly ILanguageBranchRepository _languageBranchRepository;
 
-        public RedirectService(UrlResolver urlResolver, IContentRepository contentRepository, ISiteDefinitionRepository siteDefinitionRepository)
+        public RedirectService(UrlResolver urlResolver, IContentRepository contentRepository, ISiteDefinitionRepository siteDefinitionRepository, ILanguageBranchRepository languageBranchRepository)
         {
             _urlResolver = urlResolver;
             _contentRepository = contentRepository;
             _siteDefinitionRepository = siteDefinitionRepository;
+            _languageBranchRepository = languageBranchRepository;
             RedirectRuleStorage.Init();
         }
 
@@ -147,9 +149,7 @@ namespace WebProject.Redirects
 
         public string[] GetGlobalLanguageOptions()
         {
-            return _contentRepository.GetLanguageBranches<PageData>(ContentReference.StartPage)
-                                    .Select(branch => branch.LanguageID)
-                                    .ToArray();
+            return _languageBranchRepository.ListEnabled().Select(x => x.Culture.Name).ToArray();
         }
 
         public string[] GetGlobalHostOptions()
