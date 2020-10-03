@@ -2,8 +2,8 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using EPiServer;
 using EPiServer.Core;
+using EPiServer.DataAbstraction;
 using EPiServer.ServiceLocation;
 using EPiServer.Web;
 using EPiServer.Web.Routing;
@@ -13,14 +13,12 @@ namespace WebProject.Redirects
     public class RedirectService
     {
         private readonly UrlResolver _urlResolver;
-        private readonly IContentRepository _contentRepository;
         private readonly ISiteDefinitionRepository _siteDefinitionRepository;
         private readonly ILanguageBranchRepository _languageBranchRepository;
 
-        public RedirectService(UrlResolver urlResolver, IContentRepository contentRepository, ISiteDefinitionRepository siteDefinitionRepository, ILanguageBranchRepository languageBranchRepository)
+        public RedirectService(UrlResolver urlResolver, ISiteDefinitionRepository siteDefinitionRepository, ILanguageBranchRepository languageBranchRepository)
         {
             _urlResolver = urlResolver;
-            _contentRepository = contentRepository;
             _siteDefinitionRepository = siteDefinitionRepository;
             _languageBranchRepository = languageBranchRepository;
             RedirectRuleStorage.Init();
@@ -160,8 +158,6 @@ namespace WebProject.Redirects
                                             .OrderBy(h => h)
                                             .ToArray();
         }
-
-
     }
 
     public static class RedirectRuleStorage
