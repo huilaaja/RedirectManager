@@ -1,10 +1,12 @@
-﻿﻿@inherits System.Web.WebPages.WebPage
-@using EPiServer.Framework.Web.Resources
+﻿@inherits System.Web.Mvc.WebViewPage
 @using EPiServer.Shell.Navigation
 @using EPiServer.ServiceLocation
 @using WebProject.Redirects
 @using WebProject.Utils
-@{ OnLoad(); }
+@{
+    Layout = null;
+    OnLoad();
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
