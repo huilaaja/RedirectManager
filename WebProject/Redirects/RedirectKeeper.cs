@@ -20,7 +20,8 @@ namespace WebProject.Redirects
 
             foreach (PageData page in pages)
             {
-                LogChange(page, true);
+                if (ContentReference.IsNullOrEmpty(page.ArchiveLink)) //skippa redirekt om det är en arkivering
+                    LogChange(page, true);
             }
         }
 
