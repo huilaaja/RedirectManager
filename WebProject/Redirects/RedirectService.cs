@@ -135,7 +135,7 @@ namespace WebProject.Redirects
                                                         || relativeUrl.Equals(x.FromUrl, StringComparison.InvariantCultureIgnoreCase));
 
                 RedirectRule theMatch = (exactMatch != null && match != null)
-                                    ? exactMatch.SortOrder < match.SortOrder ? exactMatch : match
+                                    ? exactMatch.SortOrder <= match.SortOrder ? exactMatch : match
                                     : exactMatch ?? match;
                 if (theMatch == null) return null;
 
@@ -148,7 +148,7 @@ namespace WebProject.Redirects
         public string[] GetGlobalLanguageOptions()
         {
             return _contentRepository.GetLanguageBranches<PageData>(ContentReference.StartPage)
-                                    .Select(branch => branch.LanguageID)
+                                    .Select(branch => ((ILocalizable)branch).Language.Name)
                                     .ToArray();
         }
 
@@ -161,6 +161,85 @@ namespace WebProject.Redirects
                                             .ToArray();
         }
 
+        /// <summary>
+        /// Cleaning rules (remove duplicates, remove deleted pages, Remove self references)
+        /// </summary>
+        /// <returns></returns>
+        public int CleanupRulesJob()
+        {
+            int counter = RemoveAllDuplicateRules();
+
+            foreach (var rule in this.List())
+            {
+                if (rule.ToContentId > 0)
+                {
+                    if (_contentRepository.TryGet<IContent>(new ContentReference(rule.ToContentId), out IContent content))
+                    {
+                        //check if url is selfpointing
+                        var url = _urlResolver.GetUrl(new ContentReference(rule.ToContentId));
+                        if (url == null || url == rule.FromUrl + "/")
+                        {
+                            DeleteRedirect(rule.Id);
+                            counter++;
+                        }
+                    }
+                    else
+                    {
+                        //content removed
+                        DeleteRedirect(rule.Id);
+                        counter++;
+                    }
+                }
+            }
+            return counter;
+        }
+
+        public int RemoveAllDuplicateRules()
+        {
+            int counter = 0;
+
+            using (var context = ServiceLocator.Current.GetInstance<RedirectDbContext>())
+            {
+                var rules = context.Database.SqlQuery<RedirectRule>(@"select *
+	                                            from [" + RedirectRuleStorage.RedirectTableName + @"]
+	                                            where ([FromUrl] IN
+                                            (
+                                              SELECT [FromUrl]
+                                              FROM [SEO_Redirect] 
+                                            GROUP BY
+                                                  [SortOrder]
+                                                  ,[Host]
+                                                  ,[FromUrl]
+                                                  ,[ToUrl]
+                                                  ,[ToContentId]
+                                                  ,[ToContentLang]
+	                                              ,[Wildcard]
+                                            HAVING 
+                                                COUNT(*) > 1
+	                                            )
+	                                            )
+	                                            order by [FromUrl]").ToList();
+                RedirectRule workingRule = null;
+
+                foreach (var rule in rules)
+                {
+                    if (workingRule != null && workingRule.FromUrl == rule.FromUrl)
+                    {
+                        DeleteRedirect(rule.Id);
+                        counter++;
+                    }
+                    else if (workingRule == null)
+                    {
+                        workingRule = rule;
+                    }
+                    else if (workingRule.FromUrl != rule.FromUrl)
+                    {
+                        workingRule = rule;
+                    }
+                }
+            }
+            return counter;
+        }
 
     }
 
