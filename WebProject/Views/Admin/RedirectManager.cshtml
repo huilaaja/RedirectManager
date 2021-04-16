@@ -1,26 +1,28 @@
-﻿@inherits System.Web.WebPages.WebPage
-@using EPiServer.Framework.Web.Resources
+@inherits System.Web.Mvc.WebViewPage
 @using EPiServer.Shell.Navigation
 @using EPiServer.ServiceLocation
 @using WebProject.Redirects
 @using WebProject.Utils
-@{ OnLoad(); }
+@{
+    Layout = null;
+    OnLoad();
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
     <title>Redirect Manager</title>
 
     <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
 
-    @Html.Raw(ClientResources.RenderResources("ShellCore"))
-    @Html.Raw(ClientResources.RenderResources("ShellWidgets"))
-    <style> a:visited { color: #fff; } </style> @* override epi style *@
+    <style>
+        a:visited {
+            color: #fff;
+        }
+    </style> @* override epi style *@
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
@@ -28,34 +30,31 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
     <!-- Latest compiled and minified JavaScript -->
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
 </head>
 <body>
+    @Html.Raw(Html.CreatePlatformNavigationMenu())
+    <div id="epi-application" @Html.Raw(Html.ApplyPlatformNavigation())>
+        <div class="container">
 
-
-    @Html.Raw(EPiServer.Shell.Navigation.MenuHelper.CreatePlatformNavigationMenu())
-
-    <div class="container" style="padding-top:60px">
-
-
-
-        @if (!RedirectRuleStorage.TableExist)
-        {
-            <div class="panel panel-danger">
-                <div class="panel-heading">Table @(RedirectRuleStorage.RedirectTableName) does not exist!</div>
-                <div class="panel-body">
-                    <a class="btn btn-danger" href="@(Request.Url.AbsolutePath)?action=createtable">Create Table @(RedirectRuleStorage.RedirectTableName)</a>
+            @if (!RedirectRuleStorage.TableExist)
+            {
+                <div class="panel panel-danger">
+                    <div class="panel-heading">Table @(RedirectRuleStorage.RedirectTableName) does not exist!</div>
+                    <div class="panel-body">
+                        <a class="btn btn-danger" href="@(Request.Url.AbsolutePath)?action=createtable">Create Table @(RedirectRuleStorage.RedirectTableName)</a>
+                    </div>
                 </div>
-            </div>
-        }
-        else if (!RedirectRuleStorage.TableV2)
-        {
-            <div class="panel panel-danger">
-                <div class="panel-heading">Table @(RedirectRuleStorage.RedirectTableName) is not up to date!</div>
-                <div class="panel-body">
-                    <a class="btn btn-danger" href="@(Request.Url.AbsolutePath)?action=updatetablev2">Update Table @(RedirectRuleStorage.RedirectTableName)</a>
+            }
+            else if (!RedirectRuleStorage.TableV2)
+            {
+                <div class="panel panel-danger">
+                    <div class="panel-heading">Table @(RedirectRuleStorage.RedirectTableName) is not up to date!</div>
+                    <div class="panel-body">
+                        <a class="btn btn-danger" href="@(Request.Url.AbsolutePath)?action=updatetablev2">Update Table @(RedirectRuleStorage.RedirectTableName)</a>
+                    </div>
                 </div>
-            </div>
-        }
+            }
 
 
 
@@ -102,57 +101,83 @@
                                 </a>
                                 <input type="text" class="form-control input-sm" name="fromurl" placeholder="/example/redirect" value="@(CurrentRedirect?.FromUrl)">
                             </div>
-                            <div class="form-group  form-group-sm">
-                                <label class="lb-sm" for="">Wildcard</label>
-                                <a data-toggle="tooltip" class="tooltipLink" data-original-title="Wildcard allows redirecting all addresses which start with 'From Url' prefix.">
-                                    <span class="glyphicon glyphicon-info-sign"></span>
-                                </a>
-                                <input type="checkbox" class="form-control input-sm checkbox" style="width: 17px; height: 17px;" name="wildcard" value="true" @(CurrentRedirect?.Wildcard ?? false ? "checked" : null)>
+                            <div class="col-md-9">
+                                <div class="form-group  form-group-sm">
+                                    <label class="lb-sm" for="">Host</label>
+                                    <a data-toggle="tooltip" class="tooltipLink" data-original-title="If Host field is *, the rule affects on all domains.">
+                                        <span class="glyphicon glyphicon-info-sign"></span>
+                                    </a>
+                                    <select class="form-control input-sm" name="host" style="">
+                                        @{
+                                            var hostOptions = new[] { "*" }.Concat(RedirectService.GetGlobalHostOptions());
+                                            var selectedHost = CurrentRedirect?.Host ?? "*";
+                                        }
+                                        @foreach (string host in hostOptions)
+                                        {
+                                            <option @(selectedHost == host ? "selected" : "")>@host</option>
+                                        }
+                                    </select>
+
+                                </div>
+                                <div class="form-group  form-group-sm">
+                                    <label class="lb-sm" for="">From Url</label>
+                                    <a data-toggle="tooltip" class="tooltipLink" data-original-title="Relative address which address or addresses are redirected.">
+                                        <span class="glyphicon glyphicon-info-sign"></span>
+                                    </a>
+                                    <input type="text" class="form-control input-sm" name="fromurl" placeholder="/example/redirect" value="@(CurrentRedirect?.FromUrl)">
+                                </div>
+                                <div class="form-group  form-group-sm">
+                                    <label class="lb-sm" for="">Wildcard</label>
+                                    <a data-toggle="tooltip" class="tooltipLink" data-original-title="Wildcard allows redirecting all addresses which start with 'From Url' prefix.">
+                                        <span class="glyphicon glyphicon-info-sign"></span>
+                                    </a>
+                                    <input type="checkbox" class="form-control input-sm checkbox" style="width: 17px; height: 17px;" name="wildcard" value="true" @(CurrentRedirect?.Wildcard ?? false ? "checked" : null)>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-9">
-                            <div class="form-group  form-group-sm">
-                                <label class="lb-sm" for="">To Url</label>
-                                <a data-toggle="tooltip" class="tooltipLink" data-original-title="Url can be absolute or relative address.">
-                                    <span class="glyphicon glyphicon-info-sign"></span>
-                                </a>
-                                <input type="text" class="form-control input-sm" name="tourl" placeholder="/redirect/to" value="@(CurrentRedirect?.ToUrl)">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group  form-group-sm">
+                                    <label class="lb-sm" for="">To Url</label>
+                                    <a data-toggle="tooltip" class="tooltipLink" data-original-title="Url can be absolute or relative address.">
+                                        <span class="glyphicon glyphicon-info-sign"></span>
+                                    </a>
+                                    <input type="text" class="form-control input-sm" name="tourl" placeholder="/redirect/to" value="@(CurrentRedirect?.ToUrl)">
+                                </div>
+                                <span style="font-size:9pt">or</span>
+                                <div class="form-group  form-group-sm">
+                                    <label class="lb-sm" for="">To Content Id</label>
+                                    <a data-toggle="tooltip" class="tooltipLink" data-original-title="Content Id is the Episerver CMS content ID number. If Content Id field is set then the 'To Url' is dismissed.">
+                                        <span class="glyphicon glyphicon-info-sign"></span>
+                                    </a>
+                                    <input type="number" class="form-control input-sm" style="width:90px;" name="tocontentid" placeholder="1" value="@(CurrentRedirect?.ToContentId ?? 0)">
+                                </div>
+                                <div class="form-group  form-group-sm">
+                                    <label class="lb-sm" for="">Language</label>
+                                    <select class="form-control input-sm" name="tocontentlang">
+                                        @{
+                                            var languageOptions = new[] { "" }.Concat(RedirectService.GetGlobalLanguageOptions());
+                                            var selectedLang = CurrentRedirect?.ToContentLang ?? "";
+                                        }
+                                        @foreach (string lang in languageOptions)
+                                        {
+                                            <option @(selectedLang == lang ? "selected" : "")>@lang</option>
+                                        }
+                                    </select>
+                                </div>
                             </div>
-                            <span style="font-size:9pt">or</span>
-                            <div class="form-group  form-group-sm">
-                                <label class="lb-sm" for="">To Content Id</label>
-                                <a data-toggle="tooltip" class="tooltipLink" data-original-title="Content Id is the Episerver CMS content ID number. If Content Id field is set then the 'To Url' is dismissed.">
-                                    <span class="glyphicon glyphicon-info-sign"></span>
-                                </a>
-                                <input type="number" class="form-control input-sm" style="width:90px;" name="tocontentid" placeholder="1" value="@(CurrentRedirect?.ToContentId ?? 0)">
-                            </div>
-                            <div class="form-group  form-group-sm">
-                                <label class="lb-sm" for="">Language</label>
-                                <select class="form-control input-sm" name="tocontentlang">
-                                    @{
-                                        var languageOptions = new[] { "" }.Concat(RedirectService.GetGlobalLanguageOptions());
-                                        var selectedLang = CurrentRedirect?.ToContentLang ?? "";
-                                    }
-                                    @foreach (string lang in languageOptions)
-                                    {
-                                        <option @(selectedLang == lang ? "selected" : "")>@lang</option>
-                                    }
-                                </select>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-sm @(Request.Params["action"] == "select" ? "btn-info" : "btn-success")">Save</button>
+                                @if (Request.Params["action"] == "select")
+                                {
+                                    <a href="@Request.Url.AbsolutePath" class="btn btn-sm btn-warning">Cancel</a>
+                                }
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <button type="submit" class="btn btn-sm @(Request.Params["action"] == "select" ? "btn-info" : "btn-success")">Save</button>
-                            @if (Request.Params["action"] == "select")
-                            {
-                                <a href="@Request.Url.AbsolutePath" class="btn btn-sm btn-warning">Cancel</a>
-                            }
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
+
 
         <div class="panel panel-danger">
             <div class="panel-heading">
@@ -208,12 +233,17 @@
             <div class="panel-heading">
                 <b class="panel-title"><a href="#" data-toggle="collapse" data-target="#instructionsPanel">Instructions</a></b>
             </div>
-            <div id="instructionsPanel" class="panel-collapse panel-body collapse">
-                <p>Redirect Manager allows to add, modify and remove <b>permanent redirection rules</b> (alias HTTP 301, Moved Permanently).</p>
-                <p>Rules are redirected in 404 handler, so all the pages and static content overrides these rules.</p>
-                <p>Url addresses are <b>NOT case sensitive</b>. Also the <b>trailing slash (/) in urls' is removed</b> before rule's are applied.</p>
-                <p>Wildcard rules redirect all the addresses that starts with the from url address.</p>
-                <p>Be careful, it's possible to create eternal loop and damage the service.</p>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <b class="panel-title"><a href="#" data-toggle="collapse" data-target="#instructionsPanel">Instructions</a></b>
+                </div>
+                <div id="instructionsPanel" class="panel-collapse panel-body collapse">
+                    <p>Redirect Manager allows to add, modify and remove <b>permanent redirection rules</b> (alias HTTP 301, Moved Permanently).</p>
+                    <p>Rules are redirected in 404 handler, so all the pages and static content overrides these rules.</p>
+                    <p>Url addresses are <b>NOT case sensitive</b>. Also the <b>trailing slash (/) in urls' is removed</b> before rule's are applied.</p>
+                    <p>Wildcard rules redirect all the addresses that starts with the from url address.</p>
+                    <p>Be careful, it's possible to create eternal loop and damage the service.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -250,6 +280,38 @@
         .row {
             margin-top: 5px;
             margin-bottom: 5px;
+        }
+
+        .panel {
+            margin-top: 20px;
+        }
+
+        .epi-application {
+            margin: 25px;
+        }
+
+        .mdc-tab .mdc-tab__text-label, .mdc-drawer .mdc-list-item, .mdc-list-item__text {
+            font-size: 14px;
+        }
+
+        .epi-navigation .mdc-top-app-bar__title {
+            font-size: 16px;
+        }
+
+        .panel-epi {
+            border-color: #1456f1;
+        }
+
+        .panel-epi > .panel-heading {
+            background-image: -webkit-linear-gradient(top,#428bca 0,#1456f1 100%);
+            background-image: linear-gradient(to bottom,#428bca 0,#1456f1 100%);
+            background-repeat: repeat-x;
+        }
+
+        .panel-epi > .panel-heading {
+            color: #fff;
+            background-color: #1456f1;
+            border-color: #1456f1;
         }
     </style>
     <script type="text/javascript">

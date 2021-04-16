@@ -4,7 +4,7 @@
 
 <h2>Description</h2>
 <p>It's built to be as minimalistic as possible and as an example of simple Episerver add-on. 
-It requires only 4 files for business logic and data access, 1 controller and 1 view.</p>
+It requires only 7 files for business logic and data access, 2 controllers and 1 view.</p>
 
 <h2>New 2.0 version has a bit smaller appearance and multi-site support</h2>
 <p>Preview:</p>
@@ -52,8 +52,9 @@ It requires only 4 files for business logic and data access, 1 controller and 1 
 	<li>Install Entity Framework from NuGet.<br/>
    https://www.nuget.org/packages/EntityFramework</li>
 	<li>Copy files into your project</li>
-	<li>Apply manually Web.Config transformations.</li>
-	<li>Go to www.yourproject.com/Views/Admin/RedirectManager.cshtml</li>
+	<li>Add .MapMvcAttributeRoutes() to RegisterRoutes override in Global.asax.cs</li>
+	<li>Apply manually Web.Config transformations</li>
+	<li>Go to www.yourproject.com/Admin/RedirectManager</li>
 </ol>
 <p><img src="https://raw.githubusercontent.com/huilaaja/RedirectManager/master/images/redirect-manager-1.png" /></p>
 
