@@ -277,13 +277,13 @@
         if (Request.Params["action"] == "add")
         {
             int n = RedirectService.AddRedirect(Request.Params["sortorder"].ParseIntOrDefault(),
-                Request.Params["host"],
-                Request.Params["fromurl"],
-                Request.Params["wildcard"].ParseBoolOrDefault(),
-                Request.Params["tourl"],
-                Request.Params["tocontentid"].ParseIntOrDefault(),
-                Request.Params["tocontentlang"]
-                );
+                                                Request.Params["host"],
+                                                Request.Params["fromurl"].Trim().TrimEnd('/'),
+                                                Request.Params["wildcard"].ParseBoolOrDefault(),
+                                                Request.Params["tourl"],
+                                                Request.Params["tocontentid"].ParseIntOrDefault(),
+                                                Request.Params["tocontentlang"]
+                                                );
             if (n > 0)
             {
                 Response.Redirect(Request.Url.AbsolutePath);
@@ -292,14 +292,14 @@
         if (Request.Params["action"] == "modify")
         {
             int n = RedirectService.ModifyRedirect(CurrentRedirect.Id,
-                Request.Params["sortorder"].ParseIntOrDefault(),
-                Request.Params["host"],
-                Request.Params["fromurl"],
-                Request.Params["wildcard"].ParseBoolOrDefault(),
-                Request.Params["tourl"],
-                Request.Params["tocontentid"].ParseIntOrDefault(),
-                Request.Params["tocontentlang"]
-                );
+                                                    Request.Params["sortorder"].ParseIntOrDefault(),
+                                                    Request.Params["host"],
+                                                    Request.Params["fromurl"].Trim().TrimEnd('/'),
+                                                    Request.Params["wildcard"].ParseBoolOrDefault(),
+                                                    Request.Params["tourl"],
+                                                    Request.Params["tocontentid"].ParseIntOrDefault(),
+                                                    Request.Params["tocontentlang"]
+                                                    );
             if (n > 0)
             {
                 Response.Redirect(Request.Url.AbsolutePath);
